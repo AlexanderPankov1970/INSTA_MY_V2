@@ -45,7 +45,7 @@ export default function Header() {
           <Image
             src={"/pankov3.jpg"}
             alt={"User Photo"}
-            className="h-12 rounded-full"
+            className="h-12 rounded-full cursor-pointer"
             width={50}
             height={50}
           />
