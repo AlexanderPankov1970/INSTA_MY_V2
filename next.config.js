@@ -12,6 +12,8 @@ const nextConfig = {
       "stock.adobe.com",
       "images.unsplash.com",
       "plus.unsplash.com",
+      "images.squarespace-cdn.com",
+      "logovector.net",
     ],
   },
 };
