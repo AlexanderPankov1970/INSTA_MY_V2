@@ -14,6 +14,7 @@ const nextConfig = {
       "plus.unsplash.com",
       "images.squarespace-cdn.com",
       "logovector.net",
+      "lh3.googleusercontent.com",
     ],
   },
 };

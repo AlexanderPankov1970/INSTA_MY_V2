@@ -12,13 +12,13 @@ export default function Post({ id, img, username, caption, userImg }) {
   return (
     <div className="bg-white mt-4 border-2 rounder-md">
       {/* Post Header*/}
-      <div className="flex items-center p-5">
+      <div className="flex items-center p-5 space-x-4">
         <Image
           src={userImg}
           alt={username}
           width={50}
           height={50}
-          className="rounded-full object-cover border p-1 mr-3"
+          className="h-12 rounded-full cursor-pointer object-cover"
         />
         <p className="font-bold flex-auto">{username}</p>
         <BiDotsHorizontalRounded className="" />

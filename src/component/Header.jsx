@@ -2,8 +2,11 @@ import Image from "next/image";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { AiFillHome, AiFillPlusCircle } from "react-icons/ai";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Header() {
+  const { data: session } = useSession();
+  console.log(99999, session);
   return (
     <div className="shadow-md border-b sticky top-0 bg-white z-30">
       <div className="flex items-center justify-between max-w-7xl">
@@ -41,14 +44,22 @@ export default function Header() {
         </div>
         <div className="flex space-x-4 items-center mx-4">
           <AiFillHome className="hidden md:inline text-2xl cursor-pointer hover:scale-125" />
-          <AiFillPlusCircle className="text-2xl cursor-pointer hover:scale-125" />
-          <Image
-            src={"/pankov3.jpg"}
-            alt={"User Photo"}
-            className="h-12 rounded-full cursor-pointer"
-            width={50}
-            height={50}
-          />
+
+          {session ? (
+            <>
+              <AiFillPlusCircle className="text-2xl cursor-pointer hover:scale-125" />
+              <Image
+                onClick={signOut}
+                src={session.user.image}
+                alt={"User Photo"}
+                className="h-12 rounded-full cursor-pointer object-cover"
+                width={50}
+                height={50}
+              />
+            </>
+          ) : (
+            <button onClick={signIn}>Sign in</button>
+          )}
         </div>
       </div>
     </div>
