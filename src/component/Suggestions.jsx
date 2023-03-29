@@ -16,12 +16,12 @@ export default function Suggestions() {
     //console.log(suggestions);
   }, []);
   return (
-    <div className="mt-4 ml-8">
+    <div className="mt-2 ml-8 justify-center">
       <div className="flex justify-between text-sm">
         <h1 className="font-bold text-gray-400">Suggestion for you</h1>
         <button className="text-gray-600 font-semibold">See all</button>
       </div>
-      <div className="flex-col space-x-2 bg-white p-6 mt-6 border-1 border-gray-300 overflow-x-scroll scrollbar-none ">
+      <div className="flex-col space-x-2 bg-white p-6 mt-2 border-1 border-gray-300 overflow-x-scroll scrollbar-none ">
         {suggestions.map((suggestion) => (
           <SuggestionStory
             key={suggestion.id}

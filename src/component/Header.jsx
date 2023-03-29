@@ -3,9 +3,13 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { AiFillHome, AiFillPlusCircle } from "react-icons/ai";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRecoilState } from "recoil";
+import { modalState } from "src/atom/ModalAtom";
 
 export default function Header() {
   const { data: session } = useSession();
+  const [open, setOpen] = useRecoilState(modalState);
+
   console.log(99999, session);
   return (
     <div className="shadow-md border-b sticky top-0 bg-white z-30">
@@ -47,7 +51,10 @@ export default function Header() {
 
           {session ? (
             <>
-              <AiFillPlusCircle className="text-2xl cursor-pointer hover:scale-125" />
+              <AiFillPlusCircle
+                onClick={() => setOpen(true)}
+                className="text-2xl cursor-pointer hover:scale-125"
+              />
               <Image
                 onClick={signOut}
                 src={session.user.image}

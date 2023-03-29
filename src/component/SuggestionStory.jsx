@@ -3,7 +3,7 @@ import React from "react";
 
 export default function SuggestionStory({ img, userName, jobTitle }) {
   return (
-    <div className="flex items-center justify-between mt-6">
+    <div className="flex items-center justify-between mt-4">
       <div className="flex items-center space-x-2">
         <Image
           src={img}

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Feed from "src/component/Feed";
 
 import Header from "src/component/Header";
+import UploadModal from "src/component/UploadModal";
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
       <Header />
       {/* Feed */}
       <Feed />
+      {/* Modal Window */}
+      <UploadModal />
     </>
   );
 }
