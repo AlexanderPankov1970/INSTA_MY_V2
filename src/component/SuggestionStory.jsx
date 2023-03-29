@@ -10,7 +10,7 @@ export default function SuggestionStory({ img, userName, jobTitle }) {
           alt={userName}
           width={50}
           height={50}
-          className="cursor-pointer rounded-full p-[1.5px] border-2 border-red-600 hover:scale-110"
+          className="cursor-pointer rounded-full p-[1.5px] border-2 border-green-600 hover:scale-110"
         />
         <div className="">
           <p className="text-xs w-24 truncate text-gray-500 font-bold">

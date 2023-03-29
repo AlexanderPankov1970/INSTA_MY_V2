@@ -35,9 +35,9 @@ export default function Post({ id, img, username, caption, userImg }) {
       <div className="flex justify-between px-2 m-4">
         <div className="flex justify-between px-4 space-x-6">
           <HiOutlineHeart className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
-          <HiOutlineChat className="btn" />
+          <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
         </div>
-        <GiBookmark className="btn" />
+        <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
       </div>
       {/* Post Comments */}
       <p className="p-5 truncate">
