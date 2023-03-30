@@ -7,6 +7,7 @@ import Story from "./Story";
 export default function Stories() {
   const [storyUsers, setStoryUsers] = useState([]);
   const { data: session } = useSession();
+  //console.log(88888, session);
   useEffect(() => {
     const storyUsers = minifaker.array(20, (i) => ({
       userName: minifaker.username({ locale: "en" }).toLowerCase(),
