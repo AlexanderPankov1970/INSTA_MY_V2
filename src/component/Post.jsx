@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import {
   HiOutlineHeart,
@@ -8,9 +8,24 @@ import {
 } from "react-icons/hi";
 import { GiBookmark } from "react-icons/gi";
 import { useSession } from "next-auth/react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export default function Post({ id, img, username, caption, userImg }) {
   const { data: session } = useSession();
+  const [comment, setComment] = useState("");
+
+  async function sendComment(event) {
+    event.preventDefault();
+    const commentToSend = comment;
+    setComment("");
+    await addDoc(collection(db, "posts", id, "comments"), {
+      comment: commentToSend,
+      username: session.user.username,
+      userImage: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+  }
   return (
     <div className="bg-white mt-4 border-2 rounder-md">
       {/* Post Header*/}
@@ -54,11 +69,20 @@ export default function Post({ id, img, username, caption, userImg }) {
         <form className="flex items-center justify-between p-4">
           <HiOutlineEmojiHappy className="text-xl" />
           <input
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
             type="text"
             placeholder="Enter your comments..."
             className="flex-1 border-none focus:ring-0"
           />
-          <button className="text-blue-400 font-bold">Post</button>
+          <button
+            type="submit"
+            onClick={sendComment}
+            disabled={!comment.trim()}
+            className="text-blue-400 font-bold disabled:text-blue-200"
+          >
+            Post
+          </button>
         </form>
       )}
     </div>

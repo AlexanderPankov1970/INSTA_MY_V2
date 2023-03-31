@@ -114,8 +114,9 @@ export default function UploadModal() {
             <button
               disabled={!selectFile || loading}
               onClick={uploadPost}
-              className="w-full bg-red-600 text-white p-2 shadow-2xl hover:brightness-125
-               disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100"
+              className="w-full bg-red-600 text-white p-2 shadow-2xl 
+              hover:brightness-125 disabled:bg-gray-200 
+              disabled:cursor-not-allowed disabled:hover:brightness-100"
             >
               {/* {loading ? <Loading /> : <p>Upload Post</p>} */}
             </button>
