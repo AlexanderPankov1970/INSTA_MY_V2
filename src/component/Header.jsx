@@ -5,12 +5,14 @@ import { AiFillHome, AiFillPlusCircle } from "react-icons/ai";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRecoilState } from "recoil";
 import { modalState } from "src/atom/ModalAtom";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const { data: session } = useSession();
   const [open, setOpen] = useRecoilState(modalState);
+  const router = useRouter();
 
-  console.log(99999, session);
+  //console.log(99999, session);
   return (
     <div className="shadow-md border-b sticky top-0 bg-white z-30">
       <div className="flex items-center justify-between max-w-7xl">
@@ -24,6 +26,7 @@ export default function Header() {
             // className="object-contain "
             width={160}
             height={160}
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="relative sm:hidden cursor-pointer m-4">
@@ -34,6 +37,7 @@ export default function Header() {
             alt={"Image Instagram"}
             width={50}
             height={50}
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="relative ">
@@ -47,7 +51,10 @@ export default function Header() {
           />
         </div>
         <div className="flex space-x-4 items-center mx-4">
-          <AiFillHome className="hidden md:inline text-2xl cursor-pointer hover:scale-125" />
+          <AiFillHome
+            className="hidden md:inline text-2xl cursor-pointer hover:scale-125"
+            onClick={() => router.push("/")}
+          />
 
           {session ? (
             <>

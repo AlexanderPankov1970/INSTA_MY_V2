@@ -7,8 +7,10 @@ import {
   HiOutlineEmojiHappy,
 } from "react-icons/hi";
 import { GiBookmark } from "react-icons/gi";
+import { useSession } from "next-auth/react";
 
 export default function Post({ id, img, username, caption, userImg }) {
+  const { data: session } = useSession();
   return (
     <div className="bg-white mt-4 border-2 rounder-md">
       {/* Post Header*/}
@@ -32,28 +34,33 @@ export default function Post({ id, img, username, caption, userImg }) {
         className="object-cover w-full pl-4"
       />
       {/* Post Buttons */}
-      <div className="flex justify-between px-2 m-4">
-        <div className="flex justify-between px-4 space-x-6">
-          <HiOutlineHeart className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
-          <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
+      {session && (
+        <div className="flex justify-between px-2 m-4">
+          <div className="flex justify-between px-4 space-x-6">
+            <HiOutlineHeart className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
+            <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
+          </div>
+          <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
         </div>
-        <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
-      </div>
+      )}
+
       {/* Post Comments */}
       <p className="p-5 truncate">
         <span className="mr-3 font-bold ">{username}</span>
         {caption}
       </p>
       {/* Post Input Box */}
-      <form className="flex items-center justify-between p-4">
-        <HiOutlineEmojiHappy className="text-xl" />
-        <input
-          type="text"
-          placeholder="Enter your comments..."
-          className="flex-1 border-none focus:ring-0"
-        />
-        <button className="text-blue-400 font-bold">Post</button>
-      </form>
+      {session && (
+        <form className="flex items-center justify-between p-4">
+          <HiOutlineEmojiHappy className="text-xl" />
+          <input
+            type="text"
+            placeholder="Enter your comments..."
+            className="flex-1 border-none focus:ring-0"
+          />
+          <button className="text-blue-400 font-bold">Post</button>
+        </form>
+      )}
     </div>
   );
 }

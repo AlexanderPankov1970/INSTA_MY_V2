@@ -117,7 +117,7 @@ export default function UploadModal() {
               className="w-full bg-red-600 text-white p-2 shadow-2xl hover:brightness-125
                disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100"
             >
-              {loading ? <Loading /> : <p>Upload Post</p>}
+              {/* {loading ? <Loading /> : <p>Upload Post</p>} */}
             </button>
           </div>
         </Modal>

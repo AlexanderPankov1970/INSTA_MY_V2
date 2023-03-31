@@ -11,11 +11,11 @@ export default function Posts() {
       query(collection(db, "posts"), orderBy("timestamp", "desc")),
       (snapshot) => {
         setPosts(snapshot.docs);
-        console.log(222222, posts);
+        // console.log(222222, posts);
       }
     );
     return unsubscribe;
-  }, []);
+  }, [db]);
 
   return (
     <div>
