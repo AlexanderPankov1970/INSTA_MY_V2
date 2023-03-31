@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import {
   HiOutlineHeart,
@@ -8,12 +8,34 @@ import {
 } from "react-icons/hi";
 import { GiBookmark } from "react-icons/gi";
 import { useSession } from "next-auth/react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase";
+import Moment from "react-moment";
 
 export default function Post({ id, img, username, caption, userImg }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(
+        collection(db, "posts", id, "comments"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) => {
+        setComments(snapshot.docs);
+      }
+    );
+    return unsubscribe;
+  }, [db, id]);
 
   async function sendComment(event) {
     event.preventDefault();
@@ -64,6 +86,26 @@ export default function Post({ id, img, username, caption, userImg }) {
         <span className="mr-3 font-bold ">{username}</span>
         {caption}
       </p>
+
+      {comments.length > 0 && (
+        <div className="mx-10 max-h-24 overflow-y-scroll scrollbar-none">
+          {comments.map((comment) => (
+            <div key={comment.id} className="flex items-center space-x-2">
+              <img
+                src={comment.data().userImage}
+                alt="user-image"
+                className="h-9 rounded-full object-cover"
+              />
+              <p className="font-bold text-gray-500">
+                {comment.data().username}
+              </p>
+              <p className="flex-1 truncate pl-3">{comment.data().comment}</p>
+              <Moment fromNow>{comment.data().timestamp?.toDate()}</Moment>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Post Input Box */}
       {session && (
         <form className="flex items-center justify-between p-4">
