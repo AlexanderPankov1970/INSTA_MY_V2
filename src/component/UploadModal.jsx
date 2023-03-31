@@ -14,6 +14,7 @@ import {
 import { db, storage } from "../../firebase";
 import { useSession } from "next-auth/react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import Loading from "./Loading";
 
 export default function UploadModal() {
   const filePickerRef = useRef(null);
@@ -30,6 +31,7 @@ export default function UploadModal() {
     if (loading) return;
 
     setLoading(true);
+
     try {
       const docRef = await addDoc(collection(db, "posts"), {
         caption: captionRef.current.value,
@@ -81,6 +83,7 @@ export default function UploadModal() {
           }}
         >
           <div className="flex flex-col justify-center items-center h-[100%]">
+            {/* {loading && <Loading />} */}
             {selectFile ? (
               <img
                 onClick={() => setSelectFile(null)}
@@ -114,7 +117,7 @@ export default function UploadModal() {
               className="w-full bg-red-600 text-white p-2 shadow-2xl hover:brightness-125
                disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100"
             >
-              Upload Post
+              {loading ? <Loading /> : <p>Upload Post</p>}
             </button>
           </div>
         </Modal>

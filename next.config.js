@@ -15,6 +15,7 @@ const nextConfig = {
       "images.squarespace-cdn.com",
       "logovector.net",
       "lh3.googleusercontent.com",
+      "firebasestorage.googleapis.com",
     ],
   },
 };
