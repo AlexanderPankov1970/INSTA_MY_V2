@@ -5,24 +5,31 @@ import {
   HiOutlineHeart,
   HiOutlineChat,
   HiOutlineEmojiHappy,
+  HiHeart,
 } from "react-icons/hi";
 import { GiBookmark } from "react-icons/gi";
 import { useSession } from "next-auth/react";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import Moment from "react-moment";
+import { async } from "@firebase/util";
 
 export default function Post({ id, img, username, caption, userImg }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [hasLiked, setHasLiked] = useState(false);
+  const [likes, setLikes] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -36,6 +43,32 @@ export default function Post({ id, img, username, caption, userImg }) {
     );
     return unsubscribe;
   }, [db, id]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", id, "likes"),
+      (snapshot) => {
+        setLikes(snapshot.docs);
+      }
+    );
+    return unsubscribe;
+  }, [db]);
+
+  useEffect(() => {
+    setHasLiked(
+      likes.findIndex((like) => like.id === session?.user.uid) !== -1
+    );
+  }, [likes]);
+
+  async function likePost() {
+    if (hasLiked) {
+      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+        username: session.user.username,
+      });
+    }
+  }
 
   async function sendComment(event) {
     event.preventDefault();
@@ -74,7 +107,18 @@ export default function Post({ id, img, username, caption, userImg }) {
       {session && (
         <div className="flex justify-between px-2 m-4">
           <div className="flex justify-between px-4 space-x-6">
-            <HiOutlineHeart className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
+            {hasLiked ? (
+              <HiHeart
+                onClick={likePost}
+                className=" text-red-400  hover:scale-125 cursor-pointer transition-transform duration-200 ease-out"
+              />
+            ) : (
+              <HiOutlineHeart
+                onClick={likePost}
+                className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out"
+              />
+            )}
+
             <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
           </div>
           <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />

@@ -118,7 +118,8 @@ export default function UploadModal() {
               hover:brightness-125 disabled:bg-gray-200 
               disabled:cursor-not-allowed disabled:hover:brightness-100"
             >
-              {/* {loading ? <Loading /> : <p>Upload Post</p>} */}
+              {loading ? <Loading /> : <p>Upload Post !</p>}
+              {/* Upload Post */}
             </button>
           </div>
         </Modal>
