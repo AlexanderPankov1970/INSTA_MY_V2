@@ -118,7 +118,7 @@ export default function Post({ id, img, username, caption, userImg }) {
                 className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out"
               />
             )}
-
+            <div>{likes.length}</div>
             <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
           </div>
           <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
