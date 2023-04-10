@@ -106,7 +106,7 @@ export default function Post({ id, img, username, caption, userImg }) {
       {/* Post Buttons */}
       {session && (
         <div className="flex justify-between px-2 m-4">
-          <div className="flex justify-between px-4 space-x-6">
+          <div className="flex justify-between px-4 space-x-6 items-center">
             {hasLiked ? (
               <HiHeart
                 onClick={likePost}
@@ -118,7 +118,11 @@ export default function Post({ id, img, username, caption, userImg }) {
                 className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out"
               />
             )}
-            <div>{likes.length}</div>
+            {likes.length === 1 && (
+              <p className="font-bold">{likes.length} like</p>
+            )}
+            {likes.length > 1 && <p className="">{likes.length} likes</p>}
+
             <HiOutlineChat className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
           </div>
           <GiBookmark className="hover:scale-125 cursor-pointer transition-transform duration-200 ease-out" />
